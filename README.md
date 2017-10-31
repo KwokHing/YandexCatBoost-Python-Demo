@@ -457,7 +457,7 @@ plt.show()
 ```
 
 
-![png](output_24_0.png)
+![png](images/output_24_0.png)
 
 
 Performing variance analysis to aid in dimension reduction
@@ -511,7 +511,7 @@ plt.show()
 ```
 
 
-![png](output_30_0.png)
+![png](images/output_30_0.png)
 
 
 Performing Pearson correlation analysis between attributes to aid in dimension reduction
@@ -729,7 +729,7 @@ plt.show()
 ```
 
 
-![png](output_62_0.png)
+![png](images/output_62_0.png)
 
 
 
@@ -1807,11 +1807,10 @@ for rect, label in zip(rects, labels):
     ax.text(rect.get_x() + rect.get_width()/2, height + 0.35, label, ha='center', va='bottom')
 
 plt.show()
-#plt.savefig("image.png")
 ```
 
 
-![png](output_69_0.png)
+![png](images/output_69_0.png)
 
 
 
@@ -1857,30 +1856,30 @@ pd.crosstab(cm['Satisfaction'], cm['Predict'], margins=True)
   <tbody>
     <tr>
       <th>Neutral</th>
-      <td>144</td>
-      <td>13</td>
-      <td>3</td>
-      <td>160</td>
+      <td>146</td>
+      <td>11</td>
+      <td>2</td>
+      <td>159</td>
     </tr>
     <tr>
       <th>Satisfied</th>
-      <td>6</td>
-      <td>139</td>
+      <td>7</td>
+      <td>137</td>
       <td>0</td>
-      <td>145</td>
+      <td>144</td>
     </tr>
     <tr>
       <th>Unsatisfied</th>
-      <td>6</td>
+      <td>8</td>
       <td>0</td>
       <td>130</td>
-      <td>136</td>
+      <td>138</td>
     </tr>
     <tr>
       <th>All</th>
-      <td>156</td>
-      <td>152</td>
-      <td>133</td>
+      <td>161</td>
+      <td>148</td>
+      <td>132</td>
       <td>441</td>
     </tr>
   </tbody>
