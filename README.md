@@ -623,11 +623,6 @@ df = pd.concat([ibm_hr_df, label_df], axis = 1)
 
 
 ```python
-#df = pd.read_csv("/home/nbuser/library/HR_dataset_generated_label.csv")
-```
-
-
-```python
 df = df[['Age', 'Department', 'DistanceFromHome', 'HourlyRate', 'OverTime', 'StockOptionLevel', 
          'MaritalStatus', 'YearsInCurrentRole', 'EmployeeNumber', 'ClassLabel']]
 ```
@@ -653,14 +648,6 @@ Performing __'one hot encoding'__ method
 ```python
 one_hot = pd.get_dummies(X)
 ```
-
-Normalisation of features
-
-
-```python
-one_hot = (one_hot - one_hot.mean()) / (one_hot.max() - one_hot.min())
-```
-
 
 ```python
 categorical_features_indices = np.where(one_hot.dtypes != np.float)[0]
@@ -892,6 +879,26 @@ model.score(X_test, y_test)
 
 
 ### Part 7: Data Preprocessing: Attribute Value Normalization ###
+
+
+Normalization of features, after eealizing that tuning no longer improve model's accuracy 
+
+
+```python
+one_hot = (one_hot - one_hot.mean()) / (one_hot.max() - one_hot.min())
+```
+
+
+```python
+categorical_features_indices = np.where(one_hot.dtypes != np.float)[0]
+```
+
+
+```python
+from sklearn.model_selection import train_test_split
+
+X_train, X_test, y_train, y_test = train_test_split(one_hot, y, train_size=0.7, random_state=1234)
+```
 
 
 ```python
