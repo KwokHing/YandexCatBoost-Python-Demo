@@ -1050,3 +1050,6 @@ model.score(X_test, y_test)
     0.93650793650793651
 
 
+### Future Improvements ###
+
+Results from the feature importance ranking shows that attribute ‘MaritalStatus’ impacts minimally in class label prediction and could potential be a noise attribute. Removing it might increase model’s accuracy.    
