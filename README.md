@@ -1,5 +1,13 @@
 
-## C6227 Assignment ##
+## CI6227 Assignment - Exploration of Yandex CatBoost ##
+
+This demo / assignment will provide a brief introduction in  
+- performing data exploration and preprocessing 
+- introduction to feature subset selection: low variance filter
+- introduction to feature subset selection: high correlation filter
+- catBoost model tuning 
+- importance of data preprocessing: data normalization
+- exploration of catboost's feature importance ranking  
 
 Installing the open source Yandex CatBoost package
 
