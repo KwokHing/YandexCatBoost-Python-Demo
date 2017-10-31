@@ -452,22 +452,6 @@ ibm_hr_df = ibm_hr_df.drop(['EmployeeCount', 'StandardHours', 'Over18'], axis=1)
 
 ### Part 2b: Data Preprocessing - Feature Subset Selection - Low Variance Filter  ###
 
-Performing variance analysis
-
-Performing Pearson correlation analysis between attributes to aid in dimension reduction
-
-
-```python
-plt.figure(figsize=(16,16))
-sns.heatmap(ibm_hr_df.corr(), annot=True, fmt=".2f")
-
-plt.show()
-```
-
-
-![png](images/output_24_0.png)
-
-
 Performing variance analysis to aid in feature selection
 
 
@@ -522,7 +506,22 @@ plt.show()
 ![png](images/output_30_0.png)
 
 
+### Part 2c: Data Preprocessing - Feature Subset Selection - High Correlation Filter  ###
+
 Performing Pearson correlation analysis between attributes to aid in feature selection
+
+
+```python
+plt.figure(figsize=(16,16))
+sns.heatmap(ibm_hr_df.corr(), annot=True, fmt=".2f")
+
+plt.show()
+```
+
+
+![png](images/output_24_0.png)
+
+
 
 ### Part 3: Mutli-Class Label Generation ###
 
