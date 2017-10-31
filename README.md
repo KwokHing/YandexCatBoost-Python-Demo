@@ -878,10 +878,10 @@ model.score(X_test, y_test)
     0.89342403628117917
 
 
-### Part 7: Data Preprocessing: Attribute Value Normalization ###
+### Part 7: Data Preprocessing: Attributes Value Normalization ###
 
 
-Normalization of features, after eealizing that tuning no longer improve model's accuracy 
+Normalization of features, after realizing that tuning no longer improve model's accuracy 
 
 
 ```python
