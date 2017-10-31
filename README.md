@@ -516,7 +516,7 @@ plt.show()
 
 Performing Pearson correlation analysis between attributes to aid in feature selection
 
-### Part 3 ###
+### Part 3: Mutli-Class Label Generation ###
 
 
 ```python
@@ -619,7 +619,7 @@ for row in range (0, value_df.shape[0]):
 df = pd.concat([ibm_hr_df, label_df], axis = 1)
 ```
 
-### Part 3: Classification with CatBoost ###
+### Part 4: Classification with CatBoost ###
 
 
 ```python
@@ -666,7 +666,7 @@ one_hot = (one_hot - one_hot.mean()) / (one_hot.max() - one_hot.min())
 categorical_features_indices = np.where(one_hot.dtypes != np.float)[0]
 ```
 
-### Part 3a: Model training with CatBoost ###
+### Part 5: Model training with CatBoost ###
 Now lets split our data to train (70%) and test (30%) set:
 
 
@@ -781,14 +781,14 @@ model.score(X_test, y_test)
     0.87528344671201819
 
 
-### Part 3b: CatBoost Classifier Tuning ###
+### Part 6: CatBoost Classifier Tuning ###
 
 
 ```python
 model = CatBoostClassifier(
     l2_leaf_reg = 5,
     iterations = 1000,
-    fold_len_multiplier = 1.01,
+    fold_len_multiplier = 1.1,
     custom_loss = ['Accuracy'],
     random_seed = 100,
     loss_function = 'MultiClass'
@@ -891,14 +891,14 @@ model.score(X_test, y_test)
     0.89342403628117917
 
 
-### Part 4: CatBoost Classifier Tuning ###
+### Part 7: Data Preprocessing: Attribute Value Normalization ###
 
 
 ```python
 model = CatBoostClassifier(
     l2_leaf_reg = 5,
     iterations = 1000,
-    fold_len_multiplier = 1.01,
+    fold_len_multiplier = 1.1,
     custom_loss = ['Accuracy'],
     random_seed = 100,
     loss_function = 'MultiClass'
