@@ -5,17 +5,8 @@ Installing the open source Yandex CatBoost package
 
 
 ```python
-!pip install catboost
+pip install catboost
 ```
-
-    Collecting catboost
-      Downloading catboost-0.2.5-cp27-none-manylinux1_x86_64.whl (2.8MB)
-    [K    100% |################################| 2.8MB 467kB/s eta 0:00:01
-    [?25hRequirement already satisfied: six in /home/nbcommon/anaconda2_410/lib/python2.7/site-packages (from catboost)
-    Requirement already satisfied: numpy in /home/nbcommon/anaconda2_410/lib/python2.7/site-packages (from catboost)
-    Installing collected packages: catboost
-    Successfully installed catboost-0.2.5
-
 
 Importing the required packaged: Numpy, Pandas, Matplotlib, Seaborn, Scikit-learn and CatBoost
 
@@ -529,13 +520,6 @@ groupName = [1, 2, 3]
 label_hr_df['CatDistanceFromHome'] = pd.cut(label_hr_df['DistanceFromHome'], bins, labels = groupName)
 ```
 
-    /home/nbcommon/anaconda2_410/lib/python2.7/site-packages/ipykernel/__main__.py:8: SettingWithCopyWarning: 
-    A value is trying to be set on a copy of a slice from a DataFrame.
-    Try using .loc[row_indexer,col_indexer] = value instead
-    
-    See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
-
-
 
 ```python
 # convert col type from cat to int64
@@ -543,32 +527,12 @@ label_hr_df['CatDistanceFromHome'] = pd.to_numeric(label_hr_df['CatDistanceFromH
 label_hr_df.drop(['DistanceFromHome'], axis = 1, inplace = True)
 ```
 
-    /home/nbcommon/anaconda2_410/lib/python2.7/site-packages/ipykernel/__main__.py:2: SettingWithCopyWarning: 
-    A value is trying to be set on a copy of a slice from a DataFrame.
-    Try using .loc[row_indexer,col_indexer] = value instead
-    
-    See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
-      from ipykernel import kernelapp as app
-    /home/nbcommon/anaconda2_410/lib/python2.7/site-packages/ipykernel/__main__.py:3: SettingWithCopyWarning: 
-    A value is trying to be set on a copy of a slice from a DataFrame
-    
-    See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
-      app.launch_new_instance()
-
-
 
 ```python
 #replace department into 0 & 1, 0: R&D, and 1: Non-R&D
 label_hr_df['Department'].replace(['Research & Development', 'Human Resources', 'Sales'],
                                   [0, 1, 1], inplace = True)
 ```
-
-    /home/nbuser/anaconda2_410/lib/python2.7/site-packages/pandas/core/generic.py:3554: SettingWithCopyWarning: 
-    A value is trying to be set on a copy of a slice from a DataFrame
-    
-    See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
-      self._update_inplace(new_data)
-
 
 
 ```python
@@ -707,12 +671,6 @@ model.fit(
     #plot = True
 )
 ```
-
-
-
-
-    '\nmodel.fit(\n    X_train, y_train,\n    cat_features = categorical_features_indices,\n    verbose = True,  # you can uncomment this for text output\n    #plot = True\n)\n'
-
 
 
 
