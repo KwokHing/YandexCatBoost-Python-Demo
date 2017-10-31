@@ -5,8 +5,17 @@ Installing the open source Yandex CatBoost package
 
 
 ```python
-pip install catboost
+!pip install catboost
 ```
+
+    Collecting catboost
+      Downloading catboost-0.2.5-cp27-none-manylinux1_x86_64.whl (2.8MB)
+    [K    100% |################################| 2.8MB 457kB/s eta 0:00:01
+    [?25hRequirement already satisfied: six in /home/nbcommon/anaconda2_410/lib/python2.7/site-packages (from catboost)
+    Requirement already satisfied: numpy in /home/nbcommon/anaconda2_410/lib/python2.7/site-packages (from catboost)
+    Installing collected packages: catboost
+    Successfully installed catboost-0.2.5
+
 
 Importing the required packaged: Numpy, Pandas, Matplotlib, Seaborn, Scikit-learn and CatBoost
 
@@ -29,9 +38,9 @@ Loading of [IBM HR Dataset](https://www.kaggle.com/pavansubhasht/ibm-hr-analytic
 ibm_hr_df = pd.read_csv("/home/nbuser/library/IBM-HR-Employee-Attrition.csv")
 ```
 
-### Part 1: Feature Selection ###
+### Part 1a: Data Exploration - Summary Statistics ###
 
-Getting dataset summary statistics
+Getting the summary statistics of the IBM HR dataset
 
 
 ```python
@@ -269,6 +278,8 @@ ibm_hr_df.describe()
 
 
 
+Zooming in on the summary statistics of irrelevant attributes __*EmployeeCount*__ and __*StandardHours*__
+
 
 ```python
 irrList = ['EmployeeCount', 'StandardHours'] 
@@ -334,6 +345,8 @@ ibm_hr_df[irrList].describe()
 
 
 
+Zooming in on the summary statistics of irrelevant attribute __*Over18*__ 
+
 
 ```python
 ibm_hr_df["Over18"].value_counts()
@@ -347,14 +360,15 @@ ibm_hr_df["Over18"].value_counts()
 
 
 
-From the summary statistics, one could see that attribute __*EmployeeCount*__, __*StandardHours*__ and __*Over18*__ holds only one single value for all of the 1470 records <br>
+From the summary statistics, one could see that attributes __*EmployeeCount*__, __*StandardHours*__ and __*Over18*__ holds only one single value for all of the 1470 records <br>
 
-We will proceed to drop these attributes as they are irrelevant features
+__*EmployeeCount*__ only holds a single value - 1.0 <br>
+__*StandardHours*__ only holds a single value - 80.0 <br>
+__*Over18*__        only holds a single value - 'Y'  <br>
 
+These irrelevant attributes are duely dropped from the dataset
 
-```python
-ibm_hr_df = ibm_hr_df.drop(['EmployeeCount', 'StandardHours', 'Over18'], axis=1)
-```
+### Part 1b: Data Exploration - Missing Values and Duplicate Records ###
 
 Checking for 'NA' and missing values in the dataset.
 
@@ -374,6 +388,7 @@ ibm_hr_df.isnull().sum(axis=0)
     DistanceFromHome            0
     Education                   0
     EducationField              0
+    EmployeeCount               0
     EmployeeNumber              0
     EnvironmentSatisfaction     0
     Gender                      0
@@ -386,10 +401,12 @@ ibm_hr_df.isnull().sum(axis=0)
     MonthlyIncome               0
     MonthlyRate                 0
     NumCompaniesWorked          0
+    Over18                      0
     OverTime                    0
     PercentSalaryHike           0
     PerformanceRating           0
     RelationshipSatisfaction    0
+    StandardHours               0
     StockOptionLevel            0
     TotalWorkingYears           0
     TrainingTimesLastYear       0
@@ -402,9 +419,9 @@ ibm_hr_df.isnull().sum(axis=0)
 
 
 
-Well, we got lucky here, there isn't any missing values in this dataset.
+Well, we got lucky here, there isn't any missing values in this dataset
 
-Next, let's check for the existence of duplicate records
+Next, let's check for the existence of duplicate records in the dataset
 
 
 ```python
@@ -418,12 +435,25 @@ ibm_hr_df.duplicated().sum()
 
 
 
+There are also no duplicate records in the dataset
+
 Converting __*OverTime*__ binary categorical attribute to {1, 0}
 
 
 ```python
 ibm_hr_df['OverTime'].replace(to_replace=dict(Yes=1, No=0), inplace=True)
 ```
+
+### Part 2a: Data Preprocessing - Removal of Irrelevant Attributes ###
+
+
+```python
+ibm_hr_df = ibm_hr_df.drop(['EmployeeCount', 'StandardHours', 'Over18'], axis=1)
+```
+
+### Part 2b: Data Preprocessing - Feature Subset Selection - Low Variance Filter  ###
+
+Performing variance analysis
 
 Performing Pearson correlation analysis between attributes to aid in dimension reduction
 
@@ -436,7 +466,7 @@ plt.show()
 ```
 
 
-![png](output_20_0.png)
+![png](output_24_0.png)
 
 
 Performing variance analysis to aid in dimension reduction
@@ -490,10 +520,12 @@ plt.show()
 ```
 
 
-![png](output_26_0.png)
+![png](output_30_0.png)
 
 
-### Part 2: Labels Generation ###
+Performing Pearson correlation analysis between attributes to aid in dimension reduction
+
+### Part 3 ###
 
 
 ```python
@@ -520,6 +552,13 @@ groupName = [1, 2, 3]
 label_hr_df['CatDistanceFromHome'] = pd.cut(label_hr_df['DistanceFromHome'], bins, labels = groupName)
 ```
 
+    /home/nbcommon/anaconda2_410/lib/python2.7/site-packages/ipykernel/__main__.py:8: SettingWithCopyWarning: 
+    A value is trying to be set on a copy of a slice from a DataFrame.
+    Try using .loc[row_indexer,col_indexer] = value instead
+    
+    See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+
+
 
 ```python
 # convert col type from cat to int64
@@ -527,12 +566,32 @@ label_hr_df['CatDistanceFromHome'] = pd.to_numeric(label_hr_df['CatDistanceFromH
 label_hr_df.drop(['DistanceFromHome'], axis = 1, inplace = True)
 ```
 
+    /home/nbcommon/anaconda2_410/lib/python2.7/site-packages/ipykernel/__main__.py:2: SettingWithCopyWarning: 
+    A value is trying to be set on a copy of a slice from a DataFrame.
+    Try using .loc[row_indexer,col_indexer] = value instead
+    
+    See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+      from ipykernel import kernelapp as app
+    /home/nbcommon/anaconda2_410/lib/python2.7/site-packages/ipykernel/__main__.py:3: SettingWithCopyWarning: 
+    A value is trying to be set on a copy of a slice from a DataFrame
+    
+    See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+      app.launch_new_instance()
+
+
 
 ```python
 #replace department into 0 & 1, 0: R&D, and 1: Non-R&D
 label_hr_df['Department'].replace(['Research & Development', 'Human Resources', 'Sales'],
                                   [0, 1, 1], inplace = True)
 ```
+
+    /home/nbuser/anaconda2_410/lib/python2.7/site-packages/pandas/core/generic.py:3554: SettingWithCopyWarning: 
+    A value is trying to be set on a copy of a slice from a DataFrame
+    
+    See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+      self._update_inplace(new_data)
+
 
 
 ```python
@@ -674,6 +733,12 @@ model.fit(
 
 
 
+
+    '\nmodel.fit(\n    X_train, y_train,\n    cat_features = categorical_features_indices,\n    verbose = True,  # you can uncomment this for text output\n    #plot = True\n)\n'
+
+
+
+
 ```python
 feature_score = pd.DataFrame(list(zip(one_hot.dtypes.index, model.get_feature_importance(Pool(one_hot, label=y, cat_features=categorical_features_indices)))),
                 columns=['Feature','Score'])
@@ -700,7 +765,7 @@ plt.show()
 ```
 
 
-![png](output_57_0.png)
+![png](output_62_0.png)
 
 
 
@@ -1782,7 +1847,7 @@ plt.show()
 ```
 
 
-![png](output_64_0.png)
+![png](output_69_0.png)
 
 
 
