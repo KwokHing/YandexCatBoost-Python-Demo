@@ -1,5 +1,5 @@
 
-## CI6227 - Exploration of Yandex CatBoost ##
+## Exploration of Yandex CatBoost in Python ##
 
 This demo will provide a brief introduction in  
 - performing data exploration and preprocessing 
