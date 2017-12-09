@@ -3,8 +3,8 @@
 
 This demo will provide a brief introduction in  
 - performing data exploration and preprocessing 
-- introduction to feature subset selection: low variance filter
-- introduction to feature subset selection: high correlation filter
+- feature subset selection: low variance filter
+- feature subset selection: high correlation filter
 - catboost model tuning 
 - importance of data preprocessing: data normalization
 - exploration of catboost's feature importance ranking  
