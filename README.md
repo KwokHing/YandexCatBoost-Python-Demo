@@ -9,6 +9,16 @@ This demo will provide a brief introduction in
 - importance of data preprocessing: data normalization
 - exploration of catboost's feature importance ranking  
 
+## Getting started
+Open `YandexCatBoost-Demo.ipynb` on a jupyter notebook environment, or Google colab. The notebook consists of further technical details.
+
+## Future Improvements ##
+
+Results from the feature importance ranking shows that attribute ‘MaritalStatus’ impacts minimally in class label prediction and could potential be a noise attribute. Removing it might increase model’s accuracy.  
+
+
+## Codes Walkthrough
+
 Installing the open source Yandex CatBoost package
 
 
@@ -1049,6 +1059,4 @@ model.score(X_test, y_test)
     0.93650793650793651
 
 
-### Future Improvements ###
-
-Results from the feature importance ranking shows that attribute ‘MaritalStatus’ impacts minimally in class label prediction and could potential be a noise attribute. Removing it might increase model’s accuracy.    
+  
